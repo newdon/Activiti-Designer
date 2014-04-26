@@ -39,7 +39,6 @@ import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
 import org.activiti.designer.PluginImage;
-import org.activiti.designer.eclipse.preferences.PreferencesUtil;
 import org.activiti.designer.features.AbstractCreateBPMNFeature;
 import org.activiti.designer.features.ChangeElementTypeFeature;
 import org.activiti.designer.features.CreateBoundaryErrorFeature;
@@ -129,6 +128,9 @@ import com.alfresco.designer.gui.features.CreateAlfrescoScriptTaskFeature;
 import com.alfresco.designer.gui.features.CreateAlfrescoStartEventFeature;
 import com.alfresco.designer.gui.features.CreateAlfrescoUserTaskFeature;
 import com.tuniu.designer.gui.features.CreateTuniuUserTaskFeature;
+import com.tuniu.designer.gui.features.CreateTuniuStartEventFeature;
+import com.tuniu.designer.gui.features.CreateTuniuReceiveTaskFeature;
+import com.tuniu.nfbird.bpm.model.CrontabStartEvent;
 
 public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
@@ -176,6 +178,8 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     toolMapping.put(CreateAlfrescoMailTaskFeature.class, PaletteEntry.ALFRESCO_MAIL_TASK);
     toolMapping.put(CreateTextAnnotationFeature.class, PaletteEntry.TEXT_ANNOTATION);
     toolMapping.put(CreateTuniuUserTaskFeature.class, PaletteEntry.TUNIU_USER_TASK);
+    toolMapping.put(CreateTuniuStartEventFeature.class, PaletteEntry.TUNIU_START_EVENT);
+    toolMapping.put(CreateTuniuReceiveTaskFeature.class, PaletteEntry.TUNIU_RECEIVE_TASK);
   }
 
   @Override
@@ -215,7 +219,7 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     taskContext.setTargetContainer((ContainerShape) pe.eContainer());
     taskContext.putProperty("org.activiti.designer.connectionContext", connectionContext);
 
-    if (bo instanceof StartEvent || (bo instanceof Activity && bo instanceof EventSubProcess == false) ||
+    if (bo instanceof StartEvent || bo instanceof CrontabStartEvent || (bo instanceof Activity && bo instanceof EventSubProcess == false) ||
         bo instanceof IntermediateCatchEvent || bo instanceof ThrowEvent ||
         bo instanceof Gateway || bo instanceof BoundaryEvent) {
 
@@ -265,7 +269,7 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
       data.getDomainSpecificContextButtons().add(button);
     }
 
-    if (bo instanceof StartEvent || (bo instanceof Activity && bo instanceof EventSubProcess == false) ||
+    if (bo instanceof StartEvent || bo instanceof CrontabStartEvent || (bo instanceof Activity && bo instanceof EventSubProcess == false) ||
         bo instanceof IntermediateCatchEvent || bo instanceof ThrowEvent ||
         bo instanceof Gateway || bo instanceof BoundaryEvent) {
 
@@ -321,6 +325,8 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
 //              "Create a new alfresco mail task", PluginImage.IMG_MAILTASK);
       addContextButton(otherElementButton, new CreateTuniuUserTaskFeature(getFeatureProvider()), taskContext, "Create tuniu user task",
     		  "Create a new tuniu user task", PluginImage.IMG_USERTASK);
+      addContextButton(otherElementButton, new CreateTuniuReceiveTaskFeature(getFeatureProvider()), taskContext, "Create tuniu receive task",
+    		  "Create a new tuniu receive task", PluginImage.IMG_RECEIVETASK);
     }
 
     ContextButtonEntry editElementButton = new ContextButtonEntry(null, null);
@@ -338,6 +344,8 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
       addGatewayButtons(editElementButton, (Gateway) bo, customContext);
     } else if (bo instanceof StartEvent) {
       addStartEventButtons(editElementButton, (StartEvent) bo, customContext);
+    } else if (bo instanceof CrontabStartEvent) {
+        addStartEventButtons(editElementButton, (CrontabStartEvent) bo, customContext);
     } else if (bo instanceof EndEvent) {
       addEndEventButtons(editElementButton, (EndEvent) bo, customContext);
     } else if (bo instanceof BoundaryEvent) {
@@ -374,6 +382,40 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     if (notStartEvent instanceof AlfrescoStartEvent) {
       return;
     }
+    String startEventType = null;
+    for (EventDefinition eventDefinition : notStartEvent.getEventDefinitions()) {
+      if (eventDefinition instanceof TimerEventDefinition) {
+        startEventType = "timer";
+      } else if (eventDefinition instanceof MessageEventDefinition) {
+        startEventType = "message";
+      } else if (eventDefinition instanceof ErrorEventDefinition) {
+        startEventType = "error";
+      }
+    }
+    if (startEventType == null) {
+      startEventType = "none";
+    }
+
+    if ("none".equals(startEventType) == false) {
+      addContextButton(otherElementButton, new ChangeElementTypeFeature(getFeatureProvider(), ChangeElementTypeFeature.EVENT_START_NONE), customContext,
+              "Change to none start event", "Change to a none start event", PluginImage.IMG_STARTEVENT_NONE);
+    }
+    if ("timer".equals(startEventType) == false) {
+      addContextButton(otherElementButton, new ChangeElementTypeFeature(getFeatureProvider(), ChangeElementTypeFeature.EVENT_START_TIMER), customContext,
+              "Change to timer start event", "Change to a timer start event", PluginImage.IMG_EVENT_TIMER);
+    }
+    if ("message".equals(startEventType) == false) {
+      addContextButton(otherElementButton, new ChangeElementTypeFeature(getFeatureProvider(), ChangeElementTypeFeature.EVENT_START_MESSAGE), customContext,
+              "Change to message start event", "Change to a message start event", PluginImage.IMG_EVENT_MESSAGE);
+    }
+    if ("error".equals(startEventType) == false) {
+      addContextButton(otherElementButton, new ChangeElementTypeFeature(getFeatureProvider(), ChangeElementTypeFeature.EVENT_START_ERROR), customContext,
+              "Change to error start event", "Change to an error start event", PluginImage.IMG_EVENT_ERROR);
+    }
+  }
+  
+  private void addStartEventButtons(ContextButtonEntry otherElementButton, CrontabStartEvent notStartEvent, CustomContext customContext) {
+
     String startEventType = null;
     for (EventDefinition eventDefinition : notStartEvent.getEventDefinitions()) {
       if (eventDefinition instanceof TimerEventDefinition) {
@@ -719,6 +761,10 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
         } */else if ("annotation".equalsIgnoreCase(toolEntry.getLabel())) {
           artifactsCompartmentEntry.getToolEntries().add(toolEntry);
         }else if ("tuniuUserTask".equalsIgnoreCase(toolEntry.getLabel())) {
+          tuniuCompartmentEntry.getToolEntries().add(toolEntry);
+        }else if ("crontabstart".equalsIgnoreCase(toolEntry.getLabel())) {
+          tuniuCompartmentEntry.getToolEntries().add(toolEntry);
+        }else if ("assertreceivetask".equalsIgnoreCase(toolEntry.getLabel())) {
           tuniuCompartmentEntry.getToolEntries().add(toolEntry);
         }
       }

@@ -1,6 +1,7 @@
 package com.tuniu.designer.gui.controller;
 
 
+import org.activiti.bpmn.model.ReceiveTask;
 import org.activiti.bpmn.model.Task;
 import org.activiti.designer.PluginImage;
 import org.activiti.designer.controller.AbstractBusinessObjectShapeController;
@@ -28,6 +29,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 
+import com.tuniu.nfbird.bpm.model.AssertReceiveTask;
 import com.tuniu.nfbird.bpm.model.WorkformTask;
 
 /**
@@ -45,7 +47,7 @@ public class TuniuTaskShapeController extends AbstractBusinessObjectShapeControl
 
   @Override
   public boolean canControlShapeFor(Object businessObject) {
-    if (businessObject instanceof WorkformTask) {
+    if (businessObject instanceof WorkformTask || businessObject instanceof AssertReceiveTask) {
       
       return true;
     } else {
@@ -136,7 +138,9 @@ public class TuniuTaskShapeController extends AbstractBusinessObjectShapeControl
     if (bo instanceof WorkformTask) {
       return PluginImage.IMG_USERTASK.getImageKey();
       
-    } else {
+    } else if (bo instanceof AssertReceiveTask) {
+        return PluginImage.IMG_RECEIVETASK.getImageKey();        
+     } else {
       // fallback
       return PluginImage.IMG_USERTASK.getImageKey();
     }

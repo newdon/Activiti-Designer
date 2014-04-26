@@ -41,6 +41,9 @@ import org.activiti.designer.util.extension.ExtensionUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 
+import com.tuniu.designer.gui.features.CreateTuniuStartEventFeature;
+import com.tuniu.nfbird.bpm.model.CrontabStartEvent;
+
 /**
  * 
  * TODO: copy standard lists such as properties and node-specific list contents
@@ -65,6 +68,8 @@ public final class CloneUtil {
     if (element instanceof StartEvent) {
       cloneElement = clone((StartEvent) element, diagram);
       formProperties = ((StartEvent) element).getFormProperties();
+    } else if (element instanceof CrontabStartEvent) {
+    	cloneElement = clone((CrontabStartEvent) element, diagram);
     } else if (element instanceof ServiceTask) {
       cloneElement = clone((ServiceTask) element, diagram);
     } else if (element instanceof EndEvent) {
@@ -171,6 +176,12 @@ public final class CloneUtil {
   private static final StartEvent clone(final StartEvent original, final Diagram diagram) {
     StartEvent result = new StartEvent();
     result.setId(ActivitiUiUtil.getNextId(result.getClass(), CreateStartEventFeature.FEATURE_ID_KEY, diagram));
+    return result;
+  }
+  
+  private static final CrontabStartEvent clone(final CrontabStartEvent original, final Diagram diagram) {
+	CrontabStartEvent result = new CrontabStartEvent();
+    result.setId(ActivitiUiUtil.getNextId(result.getClass(), CreateTuniuStartEventFeature.FEATURE_ID_KEY, diagram));
     return result;
   }
 

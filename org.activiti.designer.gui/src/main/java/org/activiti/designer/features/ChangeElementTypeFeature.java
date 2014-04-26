@@ -25,6 +25,8 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
+import com.tuniu.designer.gui.features.CreateTuniuStartEventFeature;
+
 public class ChangeElementTypeFeature extends AbstractCustomFeature {
 	
   public static final String TASK_SERVICE = "servicetask";
@@ -42,6 +44,7 @@ public class ChangeElementTypeFeature extends AbstractCustomFeature {
   
   public static final String EVENT_START_NONE = "nonestartevent";
   public static final String EVENT_START_TIMER = "timerstartevent";
+  public static final String TUNIU_EVENT_START_TIMER = "crontabstartevent";
   public static final String EVENT_START_MESSAGE = "messagestartevent";
   public static final String EVENT_START_ERROR = "errorstartevent";
   
@@ -82,6 +85,7 @@ public class ChangeElementTypeFeature extends AbstractCustomFeature {
 		
 		createFeatureMap.put(EVENT_START_NONE, new CreateStartEventFeature(fp));
 		createFeatureMap.put(EVENT_START_TIMER, new CreateTimerStartEventFeature(fp));
+		createFeatureMap.put(TUNIU_EVENT_START_TIMER, new CreateTuniuStartEventFeature(fp));
 		createFeatureMap.put(EVENT_START_MESSAGE, new CreateMessageStartEventFeature(fp));
 		createFeatureMap.put(EVENT_START_ERROR, new CreateErrorStartEventFeature(fp));
 		

@@ -34,6 +34,8 @@ import org.activiti.designer.command.StartEventModelUpdater;
 import org.activiti.designer.command.SubProcessModelUpdater;
 import org.activiti.designer.command.TextAnnotationModelUpdater;
 import org.activiti.designer.command.ThrowEventModelUpdater;
+import org.activiti.designer.command.TuniuReceiveTaskModelUpdater;
+import org.activiti.designer.command.TuniuStartEventModelUpdater;
 import org.activiti.designer.command.TuniuUserTaskModelUpdater;
 import org.activiti.designer.command.UserTaskModelUpdater;
 import org.activiti.designer.controller.AssociationShapeController;
@@ -153,7 +155,10 @@ import com.alfresco.designer.gui.features.CreateAlfrescoMailTaskFeature;
 import com.alfresco.designer.gui.features.CreateAlfrescoScriptTaskFeature;
 import com.alfresco.designer.gui.features.CreateAlfrescoStartEventFeature;
 import com.alfresco.designer.gui.features.CreateAlfrescoUserTaskFeature;
+import com.tuniu.designer.gui.controller.TuniuStartEventShapeController;
 import com.tuniu.designer.gui.controller.TuniuTaskShapeController;
+import com.tuniu.designer.gui.features.CreateTuniuReceiveTaskFeature;
+import com.tuniu.designer.gui.features.CreateTuniuStartEventFeature;
 import com.tuniu.designer.gui.features.CreateTuniuUserTaskFeature;
 
 public class ActivitiBPMNFeatureProvider extends DefaultFeatureProvider {
@@ -186,15 +191,18 @@ public class ActivitiBPMNFeatureProvider extends DefaultFeatureProvider {
     shapeControllers.add(new AlfrescoStartEventShapeController(this));
     shapeControllers.add(new AlfrescoTaskShapeController(this));
     shapeControllers.add(new TuniuTaskShapeController(this));
+    shapeControllers.add(new TuniuStartEventShapeController(this));
     
     this.modelUpdaters = new ArrayList<BpmnProcessModelUpdater>();
     modelUpdaters.add(new StartEventModelUpdater(this));
+    modelUpdaters.add(new TuniuStartEventModelUpdater(this));
     modelUpdaters.add(new EndEventModelUpdater(this));
     modelUpdaters.add(new UserTaskModelUpdater(this));
     modelUpdaters.add(new TuniuUserTaskModelUpdater(this));
     modelUpdaters.add(new ServiceTaskModelUpdater(this));
     modelUpdaters.add(new ScriptTaskModelUpdater(this));
     modelUpdaters.add(new ReceiveTaskModelUpdater(this));
+    modelUpdaters.add(new TuniuReceiveTaskModelUpdater(this));
     modelUpdaters.add(new BusinessRuleTaskModelUpdater(this));
     modelUpdaters.add(new SendTaskModelUpdater(this));
     modelUpdaters.add(new ManualTaskModelUpdater(this));
@@ -274,7 +282,7 @@ public class ActivitiBPMNFeatureProvider extends DefaultFeatureProvider {
         new CreateMessageCatchingEventFeature(this), new CreateSignalThrowingEventFeature(this), new CreateNoneThrowingEventFeature(this),
         new CreateEventSubProcessFeature(this), new CreateEmbeddedSubProcessFeature(this), new CreatePoolFeature(this), new CreateLaneFeature(this),
         new CreateCallActivityFeature(this), new CreateAlfrescoScriptTaskFeature(this), new CreateAlfrescoMailTaskFeature(this),
-        new CreateTextAnnotationFeature(this),new CreateTuniuUserTaskFeature(this) };
+        new CreateTextAnnotationFeature(this),new CreateTuniuUserTaskFeature(this),new CreateTuniuStartEventFeature(this),new CreateTuniuReceiveTaskFeature(this) };
   }
 
   @Override

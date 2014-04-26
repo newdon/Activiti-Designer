@@ -1,6 +1,7 @@
 package org.activiti.designer.eclipse.editor;
 
 import java.awt.Point;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -167,7 +168,7 @@ public class ActivitiDiagramEditor extends DiagramEditor {
       dataFile.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 
       // Invoke export marshallers to produce additional output
-      doInvokeExportMarshallers(model);
+      //doInvokeExportMarshallers(model);
 
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -186,7 +187,7 @@ public class ActivitiDiagramEditor extends DiagramEditor {
 
     BirdBpmnXMLConverter converter = new BirdBpmnXMLConverter();
     byte[] xmlBytes = converter.convertToXML(model.getBpmnModel());
-
+    //System.out.println("xml " + new String(xmlBytes, "UTF-8"));
     File objectsFile = new File(diagramFileString);
     FileOutputStream fos = new FileOutputStream(objectsFile);
     fos.write(xmlBytes);
@@ -315,11 +316,23 @@ public class ActivitiDiagramEditor extends DiagramEditor {
         InputStreamReader in = new InputStreamReader(fileStream, "UTF-8");
         XMLStreamReader xtr = xif.createXMLStreamReader(in);
         BirdBpmnXMLConverter bpmnConverter = new BirdBpmnXMLConverter();
-        bpmnConverter.setUserTaskFormTypes(PreferencesUtil.getStringArray(Preferences.ALFRESCO_FORMTYPES_USERTASK));
-        bpmnConverter.setStartEventFormTypes(PreferencesUtil.getStringArray(Preferences.ALFRESCO_FORMTYPES_STARTEVENT));
+//
+//        BufferedReader br = new BufferedReader(in);
+//        StringBuffer buffer = new StringBuffer();
+//        String line = " ";
+//        while ((line = br.readLine()) != null){
+//        buffer.append(line);
+//        } 
+//        System.out.println("xml " + buffer.toString());
+//        
         BpmnModel bpmnModel = null;
         try {
           bpmnModel = bpmnConverter.convertToBpmnModel(xtr);
+          
+          byte[] xmlBytes = bpmnConverter.convertToXML(bpmnModel);
+          //System.out.println("xml " + new String(xmlBytes, "UTF-8"));
+          
+          
         } catch (Exception e) {
           bpmnModel = new BpmnModel();
         }

@@ -38,8 +38,6 @@ public class PropertyTuniuUserTaskSection extends ActivitiPropertySection
 			Object businessObject) {
 		WorkformTask userTask = (WorkformTask) businessObject;
 
-		userTask.getWorkformAttributes();
-
 		if (control == urlText) {
 
 			return userTask.getWorkformAttributes().get("url");

@@ -291,6 +291,18 @@
                tab="org.activiti.designer.mainConfigTab">
          </propertySection>
          <propertySection
+               class="com.tuniu.designer.gui.property.PropertyTuniuStartEventSection"
+               filter="com.tuniu.designer.gui.property.PropertyTuniuStartEventFilter"
+               id="org.activiti.designer.mainConfigTab.crontabstart"
+               tab="org.activiti.designer.mainConfigTab">
+         </propertySection>
+         <propertySection
+               class="com.tuniu.designer.gui.property.PropertyTuniuReceiveTaskSection"
+               filter="com.tuniu.designer.gui.property.PropertyTuniuReceiveTaskFilter"
+               id="org.activiti.designer.mainConfigTab.assertreceivetask"
+               tab="org.activiti.designer.mainConfigTab">
+         </propertySection>
+         <propertySection
                class="com.alfresco.designer.gui.property.PropertyAlfrescoStartEventSection"
                filter="com.alfresco.designer.gui.property.PropertyAlfrescoStartEventFilter"
                id="org.activiti.designer.mainConfigTab.alfrescoStartevent"

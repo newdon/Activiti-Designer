@@ -1,4 +1,4 @@
-package org.activiti.designer.controller;
+package com.tuniu.designer.gui.controller;
 
 import org.activiti.bpmn.model.EndEvent;
 import org.activiti.bpmn.model.ErrorEventDefinition;
@@ -6,12 +6,12 @@ import org.activiti.bpmn.model.Event;
 import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.SignalEventDefinition;
-import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.Task;
 import org.activiti.bpmn.model.TerminateEventDefinition;
 import org.activiti.bpmn.model.TimerEventDefinition;
-import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
 import org.activiti.designer.PluginImage;
+import org.activiti.designer.controller.AbstractBusinessObjectShapeController;
+import org.activiti.designer.controller.BusinessObjectShapeController;
 import org.activiti.designer.diagram.ActivitiBPMNFeatureProvider;
 import org.activiti.designer.util.eclipse.ActivitiUiUtil;
 import org.activiti.designer.util.style.StyleUtil;
@@ -34,20 +34,17 @@ import com.tuniu.nfbird.bpm.model.CrontabStartEvent;
  *  
  * @author Tijs Rademakers
  */
-public class EventShapeController extends AbstractBusinessObjectShapeController {
+public class TuniuStartEventShapeController extends AbstractBusinessObjectShapeController {
   
-  private static final int IMAGE_SIZE = 20;
+  private static final int IMAGE_SIZE = 16;
   
-  public EventShapeController(ActivitiBPMNFeatureProvider featureProvider) {
+  public TuniuStartEventShapeController(ActivitiBPMNFeatureProvider featureProvider) {
     super(featureProvider);
   }
 
   @Override
   public boolean canControlShapeFor(Object businessObject) {
-    if (businessObject instanceof AlfrescoStartEvent == false && 
-    		businessObject instanceof CrontabStartEvent == false &&
-        (businessObject instanceof StartEvent || businessObject instanceof EndEvent)) {
-      
+    if (businessObject instanceof CrontabStartEvent) {
       return true;
     } else {
       return false;
