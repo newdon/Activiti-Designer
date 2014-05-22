@@ -98,7 +98,7 @@ public class TuniuStartEventShapeController extends AbstractBusinessObjectShapeC
       final Shape shape = peCreateService.createShape(containerShape, false);
       Image image = null;
       if (eventDefinition instanceof TimerEventDefinition) {
-        image = gaService.createImage(shape, PluginImage.IMG_EVENT_TIMER.getImageKey());
+        image = gaService.createImage(shape, PluginImage.IMG_CRONTAB_START_EVENT.getImageKey());
       } else if (eventDefinition instanceof MessageEventDefinition) {
         image = gaService.createImage(shape, PluginImage.IMG_EVENT_MESSAGE.getImageKey());
       } else if (eventDefinition instanceof ErrorEventDefinition) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.activiti.designer.feature"
-      label="Activiti Eclipse BPMN 2.0 Designer"
-      version="5.14.1"
-      provider-name="Activiti">
+      id="com.tuniu.activiti.designer.feature"
+      label="Tuniu Activiti Eclipse BPMN 2.0 Designer"
+      version="5.15.1"
+      provider-name="TUNIU">
 
    <description url="http://www.activiti.org">
       This feature contains the Activiti Eclipse BPMN 2.0 designer plug-in which enables you to design and test BPMN 2.0 processes.
@@ -57,12 +57,9 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
+      <update label="tuniuActivitiDesigner" url="http://activiti.tuniu.org"/>
       <discovery label="Activiti suite website" url="http://activiti.org"/>
    </url>
-
-   <includes
-         id="org.eclipse.graphiti.feature"
-         version="0.10.1"/>
 
    <requires>
       <import plugin="org.eclipse.ui"/>
@@ -94,77 +91,77 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.activiti.designer.libs"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.gui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.eclipse"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.integration"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.help"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.validation.bpmn20"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.util"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.kickstart.eclipse"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.kickstart.gui.form"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.kickstart.gui.process"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
    <plugin
          id="org.activiti.designer.kickstart.util"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="5.15.1"
          unpack="false"/>
 
 </feature>

@@ -76,6 +76,9 @@ public enum PluginImage {
   IMG_ALFRESCO_LOGO("alfresco.logo", "alfresco.png"), //$NON-NLS-1$
   
   IMG_TUNIU_LOGO("tuniu.logo", "tuniu.png"), //$NON-NLS-1$
+  
+  IMG_CRONTAB_START_EVENT("crontabStartEvent.logo", "crontabStartEvent.png"), //$NON-NLS-1$
+  IMG_ASK_RECEIVE_TASK("askReceiveTask.logo", "askReceiveTask.png"), //$NON-NLS-1$
 
   EDIT_ICON("edit.icon", "edit.png"), //$NON-NLS-1$
   NEW_ICON("new.icon", "new.png"), //$NON-NLS-1$

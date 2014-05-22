@@ -28,7 +28,7 @@ public class CreateTuniuReceiveTaskFeature extends AbstractCreateFastBPMNFeature
     newReceiveTask.addAssertEvent(startEvent);
     newReceiveTask.addAssertEvent(endEvent);
     newReceiveTask.setAsynchronous(true);
-    addObjectToContainer(context, newReceiveTask, "Receive Task");
+    addObjectToContainer(context, newReceiveTask, "assertreceivetask");
 
     return new Object[] { newReceiveTask };
   }

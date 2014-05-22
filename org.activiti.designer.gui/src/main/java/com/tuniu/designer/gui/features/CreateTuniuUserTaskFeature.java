@@ -16,10 +16,10 @@ import com.tuniu.nfbird.bpm.model.WorkformTask;
 
 public class CreateTuniuUserTaskFeature extends AbstractCreateFastBPMNFeature {
 
-  public static final String FEATURE_ID_KEY = "tuniuUsertask";
+  public static final String FEATURE_ID_KEY = "workformTask";
 
   public CreateTuniuUserTaskFeature(IFeatureProvider fp) {
-    super(fp, "TuniuUserTask", "Add tuniu user task");
+    super(fp, "WorkformTask", "Add tuniu user task");
   }
 
   @Override
@@ -34,7 +34,7 @@ public class CreateTuniuUserTaskFeature extends AbstractCreateFastBPMNFeature {
     WorkformTask newUserTask = new WorkformTask();
     
     newUserTask.setId(getNextId(newUserTask));
-    newUserTask.setName("Tuniu User Task");
+    newUserTask.setName("workformTask");
    
     
     newUserTask.setAsynchronous(true);

@@ -29,6 +29,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 
+import com.tuniu.nfbird.bpm.model.AskReceiveTask;
 import com.tuniu.nfbird.bpm.model.AssertReceiveTask;
 import com.tuniu.nfbird.bpm.model.WorkformTask;
 
@@ -47,7 +48,7 @@ public class TuniuTaskShapeController extends AbstractBusinessObjectShapeControl
 
   @Override
   public boolean canControlShapeFor(Object businessObject) {
-    if (businessObject instanceof WorkformTask || businessObject instanceof AssertReceiveTask) {
+    if (businessObject instanceof WorkformTask || businessObject instanceof AssertReceiveTask|| businessObject instanceof AskReceiveTask) {
       
       return true;
     } else {
@@ -140,7 +141,9 @@ public class TuniuTaskShapeController extends AbstractBusinessObjectShapeControl
       
     } else if (bo instanceof AssertReceiveTask) {
         return PluginImage.IMG_RECEIVETASK.getImageKey();        
-     } else {
+     } else if (bo instanceof AskReceiveTask) {
+         return PluginImage.IMG_ASK_RECEIVE_TASK.getImageKey();        
+      } else {
       // fallback
       return PluginImage.IMG_USERTASK.getImageKey();
     }

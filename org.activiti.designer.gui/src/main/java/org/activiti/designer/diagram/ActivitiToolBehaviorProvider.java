@@ -130,6 +130,7 @@ import com.alfresco.designer.gui.features.CreateAlfrescoUserTaskFeature;
 import com.tuniu.designer.gui.features.CreateTuniuUserTaskFeature;
 import com.tuniu.designer.gui.features.CreateTuniuStartEventFeature;
 import com.tuniu.designer.gui.features.CreateTuniuReceiveTaskFeature;
+import com.tuniu.designer.gui.features.CreateTuniuAskReceiveTaskFeature;
 import com.tuniu.nfbird.bpm.model.CrontabStartEvent;
 
 public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
@@ -180,6 +181,7 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     toolMapping.put(CreateTuniuUserTaskFeature.class, PaletteEntry.TUNIU_USER_TASK);
     toolMapping.put(CreateTuniuStartEventFeature.class, PaletteEntry.TUNIU_START_EVENT);
     toolMapping.put(CreateTuniuReceiveTaskFeature.class, PaletteEntry.TUNIU_RECEIVE_TASK);
+    toolMapping.put(CreateTuniuAskReceiveTaskFeature.class, PaletteEntry.TUNIU_ASK_RECEIVE_TASK);
   }
 
   @Override
@@ -327,6 +329,8 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
     		  "Create a new tuniu user task", PluginImage.IMG_USERTASK);
       addContextButton(otherElementButton, new CreateTuniuReceiveTaskFeature(getFeatureProvider()), taskContext, "Create tuniu receive task",
     		  "Create a new tuniu receive task", PluginImage.IMG_RECEIVETASK);
+      addContextButton(otherElementButton, new CreateTuniuAskReceiveTaskFeature(getFeatureProvider()), taskContext, "Create tuniu ask receive task",
+    		  "Create a new tuniu ask receive task", PluginImage.IMG_ASK_RECEIVE_TASK);
     }
 
     ContextButtonEntry editElementButton = new ContextButtonEntry(null, null);
@@ -760,13 +764,15 @@ public class ActivitiToolBehaviorProvider extends DefaultToolBehaviorProvider {
           alfrescoCompartmentEntry.getToolEntries().add(toolEntry);
         } */else if ("annotation".equalsIgnoreCase(toolEntry.getLabel())) {
           artifactsCompartmentEntry.getToolEntries().add(toolEntry);
-        }else if ("tuniuUserTask".equalsIgnoreCase(toolEntry.getLabel())) {
+        }else if ("workformtask".equalsIgnoreCase(toolEntry.getLabel())) {
           tuniuCompartmentEntry.getToolEntries().add(toolEntry);
-        }else if ("crontabstart".equalsIgnoreCase(toolEntry.getLabel())) {
+        }else if ("crontabstartevent".equalsIgnoreCase(toolEntry.getLabel())) {
           tuniuCompartmentEntry.getToolEntries().add(toolEntry);
         }else if ("assertreceivetask".equalsIgnoreCase(toolEntry.getLabel())) {
           tuniuCompartmentEntry.getToolEntries().add(toolEntry);
-        }
+        }else if ("askreceivetask".equalsIgnoreCase(toolEntry.getLabel())) {
+            tuniuCompartmentEntry.getToolEntries().add(toolEntry);
+          }
       }
     }
     // Always add the connection compartment
